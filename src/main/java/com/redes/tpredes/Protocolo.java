@@ -67,13 +67,13 @@ public class Protocolo {
 
         //en el caso que se detecte que dentro de cada byte enviado hay un flag, lo que hacemos en meterle un fill luego de que el flag termina
         for (int i = 0; i < bytes.size(); i++){
-            counter = 0;
+            int counterFlag = 0;
             int counterFill = 0;
 
             for (int j = 0; j < bytes.get(i).length(); j++) {
                 if (bytes.get(i).charAt(j) == flag.charAt(1)) {
-                    counter++;
-                    if (counter == 8) {
+                    counterFlag++;
+                    if (counterFlag == 8) {
                         String byteFlag = flag + bytesParid.get(i).substring(0,j+1) + fill + bytesParid.get(i).substring(j+1) + flag;
                         bytesBuffer.add(byteFlag);
                     }
@@ -85,7 +85,7 @@ public class Protocolo {
                     }
                 }
             }
-            if (counter < 8 && counterFill < 8){
+            if (counterFlag < 8 && counterFill < 8){
 
                 String byteNormal = flag + bytesParid.get(i) + flag;
                 bytesBuffer.add(byteNormal);
